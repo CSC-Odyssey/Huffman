@@ -59,7 +59,7 @@ class Main {
                     }
                 }
             }catch(Exception ex){
-                System.out.println("Invalid Input");
+                ex.printStackTrace();
             }
         }
     }
@@ -68,7 +68,7 @@ class Main {
         HashMap<Character, Integer> hashMap = new HashMap<>();
 
         //reading input
-        File inputFile = new File("Files\\in.txt");
+        File inputFile = new File("9413-midterm-grp7-master/files/in.txt");
 
         if (inputFile.createNewFile()) {
             System.out.println("Note: File created: " + inputFile.getName());
@@ -76,7 +76,7 @@ class Main {
             System.out.println("Note: File " + inputFile.getName() + " already exists");
         }
 
-        File huffmanCodeFile = new File("Files\\HuffmanCode.txt");
+        File huffmanCodeFile = new File("9413-midterm-grp7-master/files/HuffmanCode.txt");
 
         if (huffmanCodeFile.createNewFile()) {
             System.out.println("Note: File created: " + huffmanCodeFile.getName());
@@ -139,7 +139,7 @@ class Main {
         int largestHuffmanDigit = 0;
         StringBuilder code = new StringBuilder();
         try{
-            BufferedReader br = new BufferedReader(new FileReader("Files\\HuffmanCode.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("9413-midterm-grp7-master/files/HuffmanCode.txt"));
             do {
                 String line = br.readLine();
                 if(line == null) break;
@@ -173,7 +173,7 @@ class Main {
         while (!stack.empty()) {
             current.append(stack.pop());
             if (current.length() == largestHuffmanDigit || stack.empty()) { //if equal to largest number of digits
-                while (current.length() != 0) {
+                while (!current.isEmpty()) {
                     char[] currentArray = current.toString().toCharArray();
                     if (hashMap.containsKey(current.toString())) {
                         code.append(hashMap.get(current.toString()));
@@ -249,7 +249,7 @@ class Main {
      * @throws IOException
      */
     static int[] frequency() throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader("Files\\in.txt"));
+        BufferedReader br = new BufferedReader(new FileReader("9413-midterm-grp7-master/files/in.txt"));
         String input = ReadBigStringIn(br);
 
         char[] charSp = input.toCharArray();
@@ -346,10 +346,11 @@ class Main {
 
         System.out.println("==========================================");
 
-        double ascii = totalFeq * 7;
-        double finalSavings = ((ascii - totalFreqBits) / ascii) * 100;
+        double ascii = totalFeq * 8;
+        double finalSavings = ((ascii - totalNumBits) / ascii) * 100;
 
         System.out.println("Total Number of Bits: " + totalNumBits);
+        System.out.println("Total Number of Bits in ASCII: " + ascii);
         System.out.println("Storage Savings Percentage: " + (double) Math.round(finalSavings * 100) / 100 + "%");
         System.out.println("==========================================");
         bw.close();
